@@ -1,0 +1,206 @@
+﻿<UserControl  x:Class="Microsoft.TBox.SL.Validators.Demo.Page" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:basics="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls" 
+    xmlns:validators="clr-namespace:Microsoft.Tbox.SL.Validators;assembly=Microsoft.Tbox.SL.Validators"
+    xmlns:uc="clr-namespace:Microsoft.TBox.SL.Validators.Demo"
+>
+	<UserControl.Resources>
+		<Style x:Key="ValidatorLabel" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="./Fonts/Fonts.zip#Calibri"/>
+			<Setter Property="FontSize" Value="10"/>
+			<Setter Property="FontStyle" Value="Italic"/>
+			<Setter Property="Foreground" Value="#FF7C7C7C"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style x:Key="FormLabel" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="./Fonts/Fonts.zip#Calibri"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="15,0,0,0"/>
+		</Style>
+        <Style x:Key="FormTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="./Fonts/Fonts.zip#Calibri"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="FormTextBox" TargetType="Control">
+            <Setter Property="FontFamily" Value="./Fonts/Fonts.zip#Calibri"/>
+            <Setter Property="FontSize" Value="10"/>
+			<Setter Property="Height" Value="20" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border BorderThickness="1" BorderBrush="Black" MaxWidth="1000" MinHeight="300" Margin="20" MaxHeight="650" MinWidth="750">
+                <Grid MinWidth="750" Background="#f9f9f9">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Style="{StaticResource FormTitle}" Text="Validation Demo"/>
+                    <Rectangle Grid.Row="1" Fill="Black"/>
+
+                    <Border BorderThickness="1" BorderBrush="#FFD8D8D8" Margin="10" Grid.Row="2" CornerRadius="5" Padding="50, 20, 50, 20">
+                        <Grid validators:ValidatorService.ValidationGroup="Section 1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                            </Grid.RowDefinitions>
+							
+                            <Rectangle Grid.Row="1" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+                            <Rectangle Grid.Row="3" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+                            <Rectangle Grid.Row="5" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+
+                            <TextBlock Text="Firstname / Initials:" Style="{StaticResource FormLabel}" Grid.Row="0" />
+                            <TextBlock Text="Insertion:" Style="{StaticResource FormLabel}" Grid.Row="1" />
+                            <TextBlock Text="Lastname:" Style="{StaticResource FormLabel}" Grid.Row="2" />
+                            <TextBlock Text="Year of Birth:" Style="{StaticResource FormLabel}" Grid.Row="3" />
+                            <TextBlock Text="Gender:" Style="{StaticResource FormLabel}" Grid.Row="4" />
+                            <TextBlock Text="Social Security No.:" Style="{StaticResource FormLabel}" Grid.Row="5" />
+                            <TextBlock Text="Accept terms:" Style="{StaticResource FormLabel}" Grid.Row="6" />
+
+                            <TextBox Height="20"  Grid.Column="1" Text="" TextWrapping="Wrap"
+                                validators:ValidatorService.Validator="firstName" 
+                                validators:ValidatorService.ValidatorType="Required" Style="{StaticResource FormTextBox}" 
+                            />
+                            
+                            <TextBox Height="20"  Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" Style="{StaticResource FormTextBox}"
+                            />
+                            
+                            <TextBox Height="20" Grid.Column="1" Grid.Row="2" Text="" TextWrapping="Wrap"
+                                validators:ValidatorService.Validator="lastName" 
+                                validators:ValidatorService.ValidatorType="Required" Style="{StaticResource FormTextBox}" 
+                            />
+                            
+                            <basics:DatePicker Grid.Column="1" Grid.Row="3" Height="20" Style="{StaticResource FormTextBox}"
+                                validators:ValidatorService.Validator="datepicker" 
+                                validators:ValidatorService.ValidatorType="Required" 
+                            >
+                            </basics:DatePicker>
+                            
+                            <validators:RadioGroup Orientation="Horizontal" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"
+                                validators:ValidatorService.Validator="gender" 
+                                validators:ValidatorService.ValidatorType="Required"
+                            > 
+                                <RadioButton Content="Male" Margin="5,0,0,0" />
+                                <RadioButton Content="Female" Margin="5,0,0,0" />
+                            </validators:RadioGroup>
+                            
+                            <TextBox  Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Name="customVal"
+                                validators:ValidatorService.Validator="custom" 
+                                validators:ValidatorService.ValidatorType="Custom" Style="{StaticResource FormTextBox}" 
+                             />
+                            
+                            <CheckBox Content="Yes / No"  Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"
+                                validators:ValidatorService.Validator="terms" 
+                                validators:ValidatorService.ValidatorType="Required"
+                            />
+
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" validators:ValidatorService.RegisterValidator="firstName" />
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="1" validators:ValidatorService.RegisterValidator="insertion"/>
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="2" validators:ValidatorService.RegisterValidator="lastName"/>
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="3" validators:ValidatorService.RegisterValidator="datepicker"/>
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="4" validators:ValidatorService.RegisterValidator="gender"/>
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="5" validators:ValidatorService.RegisterValidator="custom" />
+                            <uc:Validator Grid.Column="2" Margin="5,5,0,0" Grid.Row="6" validators:ValidatorService.RegisterValidator="terms"/>
+
+							<TextBlock Text="Required" Grid.Column="3" Style="{StaticResource ValidatorLabel}" />
+                            <TextBlock Text="Required" Grid.Column="3" Grid.Row="2" Style="{StaticResource ValidatorLabel}" />
+                            <TextBlock Text="Required w/ DatePicker" Grid.Column="3" Grid.Row="3" Style="{StaticResource ValidatorLabel}" />
+                            <TextBlock Text="Required w/ Radio" Grid.Column="3" Grid.Row="4" Style="{StaticResource ValidatorLabel}" />
+                            <TextBlock Text="Custom validation script" Grid.Column="3" Grid.Row="5" Style="{StaticResource ValidatorLabel}" />
+                            <TextBlock Text="Required w/ checkbox" Grid.Column="3" Grid.Row="6" Style="{StaticResource ValidatorLabel}" />
+
+                        </Grid>
+
+                    </Border>
+
+
+                    <Border BorderThickness="1" BorderBrush="#FFD8D8D8" Margin="10,5,10,10" Grid.Row="3" CornerRadius="5"  Padding="50, 20, 50, 20">
+                        <Grid validators:ValidatorService.ValidationGroup="Section 2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                                <RowDefinition Height="0.14*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Grid.Row="1" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+                            <Rectangle Grid.Row="3" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+                            <Rectangle Grid.Row="5" Fill="#FFF4F4F4" Grid.ColumnSpan="4"/>
+
+                            <TextBlock Text="Email address:" Style="{StaticResource FormLabel}" />
+                            <TextBlock Text="Username:" Style="{StaticResource FormLabel}" Grid.Row="1" />
+                            <TextBlock Text="Password:" Style="{StaticResource FormLabel}" Grid.Row="2" />
+                            <TextBlock Text="Password (verification):" Style="{StaticResource FormLabel}" Grid.Row="3" />
+
+                            <TextBox Height="20" Grid.Column="1" Style="{StaticResource FormTextBox}"
+                                validators:ValidatorService.Validator="valEmailAddress" 
+                                validators:ValidatorService.ValidatorType="RegularExpression"
+                                validators:ValidatorService.ValidatorParameter="^(([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?))$" 
+                            />
+                            <TextBox Height="20" Grid.Column="1" Grid.Row="1" Style="{StaticResource FormTextBox}"
+                                validators:ValidatorService.Validator="valUserName" 
+                                validators:ValidatorService.ValidatorType="Required"
+                            />
+                            <PasswordBox Height="20" Grid.Column="1" Grid.Row="2" Name="passwordField"  Style="{StaticResource FormTextBox}"
+                                validators:ValidatorService.Validator="valPassword" 
+                                validators:ValidatorService.ValidatorType="Required"
+                            />
+                            <PasswordBox Height="20" Grid.Column="1" Grid.Row="3" Style="{StaticResource FormTextBox}"
+                                validators:ValidatorService.Validator="valPasswordVerification" 
+                                validators:ValidatorService.ValidatorType="Compare"
+                                validators:ValidatorService.ValidatorParameter="passwordField"         
+                            />
+
+                            <TextBlock Text="Regular Expression" Style="{StaticResource ValidatorLabel}" Grid.Column="3" />
+                            <TextBlock Text="Required" Style="{StaticResource ValidatorLabel}" Grid.Column="3" Grid.Row="1" />
+							<TextBlock Text="Required w/ password" Style="{StaticResource ValidatorLabel}" Grid.Column="3" Grid.Row="2" />
+                            <TextBlock Text="Compare w/ previous password" Style="{StaticResource ValidatorLabel}" Grid.Column="3" Grid.Row="3" />
+                            
+                            <uc:Validator Grid.Column="2" Grid.Row="0" Margin="5,5,0,0" validators:ValidatorService.RegisterValidator="valEmailAddress" />
+                            <uc:Validator Grid.Column="2" Grid.Row="1" Margin="5,5,0,0" validators:ValidatorService.RegisterValidator="valUserName" />
+                            <uc:Validator Grid.Column="2" Grid.Row="2" Margin="5,5,0,0" validators:ValidatorService.RegisterValidator="valPassword" />
+                            <uc:Validator Grid.Column="2" Grid.Row="3" Margin="5,5,0,0" validators:ValidatorService.RegisterValidator="valPasswordVerification" />
+                        </Grid>
+                    </Border>
+
+                    <Rectangle Grid.Row="4" Fill="Black"/>
+
+                    <StackPanel Width="420" Grid.Row="5" Orientation="Horizontal">
+                        <Button Width="200" Margin="5,10,5,10" Content="Validate #01" Click="btnValidationGroup1_Click" />
+                        <Button Width="200" Margin="5,10,5,10" Content="Validate #02" Click="btnValidationGroup2_Click" />
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
